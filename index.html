@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b20">
+  <meta name="description" content="Our Notes — a quiet scratchpad for the little thoughts we want to keep, just for Mena.">
+  <title>Our Notes ✎ Love for Mena</title>
+  <link rel="canonical" href="https://menaammarpro.github.io/love-notes/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Our Notes — for Mena">
+  <meta property="og:title" content="Our Notes ✎ Love for Mena">
+  <meta property="og:description" content="A quiet scratchpad for the little thoughts we want to keep.">
+  <meta property="og:url" content="https://menaammarpro.github.io/love-notes/">
+  <meta property="og:image" content="https://menaammarpro.github.io/love-notes/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Our Notes — a shared scratchpad">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Notes ✎ Love for Mena">
+  <meta name="twitter:description" content="A quiet scratchpad for the little thoughts we want to keep.">
+  <meta name="twitter:image" content="https://menaammarpro.github.io/love-notes/assets/og-image.png">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="js/theme-main.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Our Notes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">✎ Our Notes</a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">Menu</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="active" href="index.html">Home</a>
+      <a href="#notebook">Notebook</a>
+      <a href="#about">About</a>
+      <div class="nav-more">
+        <button class="nav-more-toggle" type="button" aria-expanded="false">More <span class="caret" aria-hidden="true">▾</span></button>
+        <div class="nav-more-menu">
+          <a href="https://menaammarpro.github.io/">All our projects</a>
+          <a href="https://menaammarpro.github.io/loveformymena/">Our little universe ↗</a>
+          <a href="https://menaammarpro.github.io/love-diary/">Our diary</a>
+          <a href="https://menaammarpro.github.io/love-mailbox/">Letters for later</a>
+        </div>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme">Theme</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero notes-hero">
+      <p class="eyebrow">A QUIET SCRATCHPAD</p>
+      <div class="notes-mark" aria-hidden="true">✎</div>
+      <p class="small-caption">Every little thought, kept somewhere safe.</p>
+      <h1>Our <span>notes.</span></h1>
+      <p class="hero-description">
+        A soft little notebook for us — grocery lists, song ideas, half-finished
+        letters, things to tell each other later. Write it down, tag it, colour
+        it, and it waits here exactly where you left it.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#notebook">Open the notebook <span>♥</span></a>
+        <a class="button button-ghost" href="#about">How it works</a>
+      </div>
+      <p class="signature">Made with love, just for you <span>♥</span></p>
+    </section>
+
+    <section class="section" id="notebook">
+      <p class="eyebrow">THE NOTEBOOK</p>
+      <h2>Write something <span>small.</span></h2>
+
+      <div class="notes-toolbar">
+        <label class="sr-only" for="search-input">Search notes</label>
+        <input id="search-input" class="notes-search" type="search" placeholder="Search titles, notes and tags…" autocomplete="off">
+        <div class="notes-toolbar-actions">
+          <button class="button button-primary" id="new-note" type="button">New note</button>
+          <button class="button button-ghost" id="export-notes" type="button">Export</button>
+          <label class="button button-ghost" for="import-notes">Import</label>
+          <input id="import-notes" class="sr-only" type="file" accept="application/json,.json">
+        </div>
+      </div>
+
+      <div class="notes-tagbar" id="tag-filter" aria-label="Filter by tag"></div>
+
+      <div class="notes-workspace">
+        <div class="notes-list-wrap">
+          <p class="notes-count"><strong id="notes-count">0</strong> notes <span id="notes-filtered"></span></p>
+          <div class="notes-list" id="note-list"></div>
+          <p class="notes-empty" id="empty-state">No notes yet — tap <strong>New note</strong> and write the first one ♥</p>
+        </div>
+
+        <div class="editor-panel" id="editor">
+          <p class="editor-blank" id="editor-blank">Pick a note on the left, or start a new one.</p>
+          <form class="editor-form" id="editor-form" hidden novalidate>
+            <label class="sr-only" for="editor-title">Note title</label>
+            <input id="editor-title" class="editor-title" type="text" placeholder="Title" autocomplete="off" maxlength="120">
+
+            <label class="sr-only" for="editor-body">Note body</label>
+            <textarea id="editor-body" class="editor-body" placeholder="Write it down…" rows="9"></textarea>
+
+            <label class="sr-only" for="editor-tags">Tags</label>
+            <input id="editor-tags" class="editor-tags" type="text" placeholder="tags, comma separated" autocomplete="off" maxlength="160">
+
+            <div class="editor-row">
+              <span class="control-label">Colour</span>
+              <div class="palette" id="colour-palette">
+                <button class="swatch is-active" type="button" data-color="white" style="--swatch:#ffffff" aria-label="White"></button>
+                <button class="swatch" type="button" data-color="pink" style="--swatch:#ff9fcf" aria-label="Pink"></button>
+                <button class="swatch" type="button" data-color="purple" style="--swatch:#b98bff" aria-label="Purple"></button>
+                <button class="swatch" type="button" data-color="gold" style="--swatch:#ffd166" aria-label="Gold"></button>
+              </div>
+            </div>
+
+            <div class="editor-actions">
+              <button class="button button-ghost" id="pin-toggle" type="button" aria-pressed="false">Pin</button>
+              <button class="button button-ghost" id="copy-link" type="button">Copy link</button>
+              <button class="button button-ghost" id="delete-note" type="button">Delete</button>
+              <button class="button button-primary" id="save-note" type="submit">Save</button>
+            </div>
+
+            <p class="editor-meta">
+              <span class="editor-chip"><strong id="word-count">0</strong> words</span>
+              <span class="editor-chip" id="note-updated">—</span>
+              <span class="editor-chip" id="save-status" aria-live="polite"></span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <p class="eyebrow">JUST FOR US</p>
+      <h2>About this <span>book.</span></h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">✎</div>
+          <h3>Autosave</h3>
+          <p>Everything saves as you type — no save button needed, no lost thoughts.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🏷</div>
+          <h3>Tags &amp; colour</h3>
+          <p>Tag a note and give it a colour so the important ones stand out.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📌</div>
+          <h3>Pin the good ones</h3>
+          <p>Pin a note to keep it at the top of the list, always within reach.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⇄</div>
+          <h3>Export &amp; import</h3>
+          <p>Download all your notes as a JSON file, and bring them back any time.</p>
+        </article>
+      </div>
+      <p class="settings-note">Saved on this device only — no tracking, no network calls.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with care <span>♥</span> for Mena</p>
+    <p class="footer-small">Karachi ⇄ Bucharest ✎ a little notebook of ours</p>
+  </footer>
+</body>
+</html>
